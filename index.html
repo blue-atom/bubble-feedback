@@ -6,21 +6,21 @@
 
 <body>
 	<div class="container">
-		<div class="smiley happy">
+		<div id="happy" class="smiley happy">
 			<div class="eyes">
 				<div class="eye"></div>
 				<div class="eye"></div>
 			</div>
 			<div class="expression_happy"></div>
 		</div>
-		<div class="smiley okok">
+		<div id="okok" class="smiley okok">
 			<div class="eyes">
 				<div class="eye"></div>
 				<div class="eye"></div>
 			</div>
 			<div class="expression_okok"></div>
 		</div>
-		<div class="smiley sad">
+		<div id="sad" class="smiley sad">
 			<div class="eyes">
 				<div class="eye"></div>
 				<div class="eye"></div>
@@ -28,6 +28,29 @@
 			<div class="expression_sad"></div>
 		</div>
 	</div>
+
+	<script>
+		const happy = document.getElementById('happy');
+		const okok = document.getElementById('okok');
+		const sad = document.getElementById('sad');
+
+		function updateEmotion(event) {
+			event.stopPropagation();
+			const emotion = event.target.id;
+			const url = `http://localhost:3000/sendFeedback?emotion=${emotion}`
+			fetch(url)
+				.then(function (response) {
+					return response.body;
+				})
+				.then(function (body) {
+					console.log(body);
+				});
+		}
+
+		happy.onclick = updateEmotion;
+		okok.onclick = updateEmotion;
+		sad.onclick = updateEmotion;
+	</script>
 </body>
 
 </html>
